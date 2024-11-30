@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/main_screens/CertificatePage.dart';
 import 'package:flutter_application_1/main_screens/EnquiryPage.dart';
 import 'package:flutter_application_1/main_screens/FeesPage.dart';
-import 'package:flutter_application_1/main_screens/StaffPage.dart';
-import 'package:flutter_application_1/main_screens/Student_Page.dart'; // Ensure the path is correct
 
 void main() {
   runApp(MaterialApp(
@@ -34,7 +32,7 @@ void main() {
       '/logout': (context) =>
           Scaffold(appBar: AppBar(title: const Text('Log Out'))),
       '/staff': (context) => StaffPage(), // StaffPage screen
-      //'/students': (context) => StudentPage(), // StudentPage screen
+      '/students': (context) => StudentPage(), // StudentPage screen
       '/settings': (context) =>
           Scaffold(appBar: AppBar(title: const Text('Settings'))),
       '/courses': (context) => CoursesPage(), // Define CoursesPage screen
@@ -83,7 +81,6 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  // AppBar with a more professional look
   AppBar _buildAppBar() {
     return AppBar(
       title: Row(
@@ -113,9 +110,7 @@ class HomePage extends StatelessWidget {
       actions: [
         IconButton(
           icon: Icon(Icons.notifications),
-          onPressed: () {
-            // Implement action for notifications
-          },
+          onPressed: () {},
         ),
         Padding(
           padding: const EdgeInsets.only(right: 20.0),
@@ -129,7 +124,6 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  // Welcome section with modern typography
   Widget _buildWelcomeSection() {
     return Text(
       'Welcome to EduAdmin',
@@ -138,7 +132,6 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  // Quick actions section with cards
   Widget _buildQuickActionsSection(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,37 +154,34 @@ class HomePage extends StatelessWidget {
                 context, 'Fees', Icons.payment, Colors.pink, '/dashboard'),
             _buildCard(context, 'Certificates', Icons.document_scanner,
                 Colors.yellow, '/profile'),
-            _buildCard(context, 'Courses', Icons.book, Colors.purple,
-                '/courses'), // Navigate to CoursesPage
+            _buildCard(
+                context, 'Courses', Icons.book, Colors.purple, '/courses'),
           ],
         ),
       ],
     );
   }
 
-  // Reusable card for each quick action
   Widget _buildCard(BuildContext context, String title, IconData icon,
       Color color, String route) {
     return GestureDetector(
       onTap: () {
-        // Navigate to the respective route
         Navigator.pushReplacement(context, MaterialPageRoute(
           builder: (context) {
-            // Checking which route is tapped and returning the corresponding screen
             if (route == '/staff') {
-              return StaffPage(); // Navigate to StaffPage
+              return StaffPage();
             } else if (route == '/students') {
-              return StudentPage(); // Navigate to StudentPage
+              return StudentPage();
             } else if (route == '/enquiries') {
-              return EnquiryPage(); // Navigate to EnquiryPage
+              return EnquiryPage();
             } else if (route == '/fees') {
-              return FeesPage(); // Navigate to FeesPage
+              return FeesPage();
             } else if (route == '/certificates') {
-              return CertificatePage(); // Navigate to CertificatePage
+              return CertificatePage();
             } else if (route == '/courses') {
-              return CoursesPage(); // Navigate to CoursesPage
+              return CoursesPage();
             } else {
-              return Scaffold(); // Default to empty scaffold if no match
+              return Scaffold();
             }
           },
         ));
@@ -234,7 +224,6 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  // Recent Activity section with cleaner card layout
   Widget _buildRecentActivityList() {
     return Column(
       children: [
@@ -248,7 +237,6 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  // Reusable activity card for recent activities
   Widget _buildActivityCard(String title, IconData icon, Color color) {
     return Card(
       elevation: 5,
@@ -261,7 +249,6 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  // Notification card
   Widget _buildNotificationCard(String message, IconData icon) {
     return Card(
       color: Colors.amber[100],
@@ -274,7 +261,6 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  // Stats card for showing various statistics
   Widget _buildStatsCard(String title, int count, IconData icon) {
     return Card(
       color: Colors.blue[100],
@@ -288,7 +274,6 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  // Section Title Bar with a more sleek look
   Widget SectionTitleBar({required String title}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -305,7 +290,6 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  // Drawer for navigation
   Widget _buildDrawer(BuildContext context) {
     return Drawer(
       child: ListView(
@@ -343,9 +327,20 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class StudentPage {}
+class StudentPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Student Page'),
+      ),
+      body: Center(
+        child: Text('Welcome to the Student Page!'),
+      ),
+    );
+  }
+}
 
-// Define CoursesPage class
 class CoursesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -353,6 +348,20 @@ class CoursesPage extends StatelessWidget {
       appBar: AppBar(title: Text("Courses")),
       body: Center(
         child: Text("Courses Page Content Here"),
+      ),
+    );
+  }
+}
+
+class StaffPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Staff Page"),
+      ),
+      body: Center(
+        child: Text("Welcome to the Staff Page!"),
       ),
     );
   }
