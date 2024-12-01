@@ -1,3 +1,5 @@
+//import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class StaffPage extends StatelessWidget {
@@ -37,6 +39,9 @@ class StaffPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
+            // Search bar
+            _buildSearchBar(),
+            SizedBox(height: 20),
             // Staff info section (example content)
             Text(
               "Staff Overview",
@@ -53,6 +58,9 @@ class StaffPage extends StatelessWidget {
             SizedBox(height: 15),
             _buildStaffInfoCard(
                 "Staff Pending Approval", "20", Icons.access_time),
+            SizedBox(height: 20),
+            // Bar chart for Staff Distribution
+            //_buildStaffChart(),
             SizedBox(height: 30),
             // Action Buttons (e.g., Add Staff, View Details)
             Row(
@@ -64,9 +72,24 @@ class StaffPage extends StatelessWidget {
                     context, "View Details", Icons.visibility, Colors.green),
               ],
             ),
+            SizedBox(height: 30),
+            // Staff List (interactive)
+            Expanded(child: _buildStaffList()),
           ],
         ),
       ),
+    );
+  }
+
+  // Search bar (to filter staff members)
+  Widget _buildSearchBar() {
+    return CupertinoSearchTextField(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      placeholder: 'Search staff...',
+      onChanged: (text) {
+        // Implement search logic
+        print("Searching for: $text");
+      },
     );
   }
 
@@ -122,4 +145,84 @@ class StaffPage extends StatelessWidget {
       ),
     );
   }
+
+  // Bar Chart for staff distribution (Active vs Pending)
+  // Widget _buildStaffChart() {
+  //var data = [
+  // StaffData('Active', 130),
+  // StaffData('Pending', 20),
+  //];
+
+  //var series = [
+  //charts.Series<StaffData, String>(
+  //id: 'Staff Distribution',
+  //colorFn: (_, __) => charts.MaterialPalette.deepPurple.shadeDefault,
+  //domainFn: (StaffData staff, _) => staff.status,
+  //measureFn: (StaffData staff, _) => staff.count,
+  //data: data,
+  // )
+  //];
+
+  //return Container(
+  // height: 200,
+  // padding: EdgeInsets.all(10),
+  // child: charts.BarChart(
+  // series,
+  // animate: true,
+  // vertical: false,
+  // barRendererDecorator: charts.BarLabelDecorator<String>(),
+  //// domainAxis: charts.OrdinalAxisSpec(
+  //   renderSpec: charts.SmallTickRendererSpec(labelRotation: 45),
+  //  ),
+  //),
+  // );
+  //}
+
+  // Staff List (Scrollable with clickable items)
+  Widget _buildStaffList() {
+    List<String> staffMembers = [
+      'John Doe - Developer',
+      'Jane Smith - HR',
+      'Michael Brown - Manager',
+      'Sarah Lee - Designer',
+      'David Wilson - Developer',
+    ];
+
+    return ListView.builder(
+      itemCount: staffMembers.length,
+      itemBuilder: (context, index) {
+        return Card(
+          elevation: 5,
+          margin: EdgeInsets.symmetric(vertical: 5),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          child: ListTile(
+            leading: CircleAvatar(
+              backgroundColor: Colors.deepPurple,
+              child: Text(
+                staffMembers[index]
+                    [0], // Initial letter of the staff member's name
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            title: Text(staffMembers[index]),
+            trailing: Icon(Icons.arrow_forward_ios, size: 20),
+            onTap: () {
+              // Implement navigation or other actions here
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("${staffMembers[index]} clicked")),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+}
+
+class StaffData {
+  final String status;
+  final int count;
+
+  StaffData(this.status, this.count);
 }
